@@ -25,6 +25,13 @@ const verdicts = {
   ]
 };
 const closes = ['You gave it a little less of the whole room. That counts.', 'The feeling was real. You do not have to solve it all from inside the feeling.', 'Nothing needed to be proven just now. You made a little space.'];
+const rRatedOutcomes = [
+  ['Please find someone who gives a fuck.', 'The undersigned has reviewed the situation and has no further emotional resources to allocate.'],
+  ['I have officially run out of fucks to give.', 'Any remaining stock has been reserved for matters with actual consequences.'],
+  ['This has exceeded its allotted attention.', 'Further messages may be received, noted, and left entirely unanswered.'],
+  ['The court recommends a different audience.', 'This office is no longer accepting submissions from this particular situation.'],
+  ['Consider this your notice of indifference.', 'Not hostile. Not dramatic. Just profoundly unavailable for this.']
+];
 const categories = ['Things that are blue', 'Movies you could watch again', 'Things that grow in a garden', 'Cities you know', 'Things with wheels', 'Foods you would order at a café'];
 let selected = 'breathing', breathTimer, breathIn = true, categoryIndex = 0, resetTimer;
 
@@ -55,11 +62,16 @@ function issueRuling() {
   const pick = picks[Math.floor(Math.random() * picks.length)];
   $('#ruling-title').textContent = pick[0]; $('#ruling-copy').textContent = pick[1];
   $('#case-number').textContent = `NTD–${String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}`;
-  $('#ruling').classList.remove('hidden'); $('#ruling').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  $('#r-rated').classList.add('hidden'); $('#ruling').classList.remove('hidden'); $('#ruling').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 $('#share-ruling').addEventListener('click', async () => { const text = `NOT THAT DEEP — ${$('#ruling-title').textContent}\n${$('#ruling-copy').textContent}`; try { if (navigator.share) await navigator.share({ title: 'Official ruling', text }); else { await navigator.clipboard.writeText(text); $('#share-ruling').textContent = 'Copied'; setTimeout(() => $('#share-ruling').textContent = 'Share ruling', 1400); } } catch {} });
 $('#download-ruling').addEventListener('click', () => { const c = document.createElement('canvas'), x = c.getContext('2d'); c.width = 1080; c.height = 1080; x.fillStyle = '#fffef9'; x.fillRect(0, 0, c.width, c.height); x.strokeStyle = '#17201b'; x.lineWidth = 5; x.strokeRect(38, 38, 1004, 1004); x.fillStyle = '#17201b'; x.font = '28px monospace'; x.fillText('OFFICE OF PROPORTION & PERSPECTIVE', 85, 120); x.font = 'bold 66px sans-serif'; wrap(x, $('#ruling-title').textContent, 85, 230, 850, 78); x.font = '32px sans-serif'; wrap(x, $('#ruling-copy').textContent, 85, 500, 820, 46); const a = document.createElement('a'); a.download = 'not-that-deep-ruling.png'; a.href = c.toDataURL('image/png'); a.click(); });
 function wrap(x, text, left, top, width, line) { let row = '', y = top; for (const word of text.split(' ')) { const test = `${row}${word} `; if (x.measureText(test).width > width && row) { x.fillText(row, left, y); row = `${word} `; y += line; } else row = test; } x.fillText(row, left, y); }
+
+$('#r-rated-button').addEventListener('click', () => { const pick = rRatedOutcomes[Math.floor(Math.random() * rRatedOutcomes.length)]; $('#rr-title').textContent = pick[0]; $('#rr-detail').textContent = pick[1]; $('#rr-number').textContent = `RR–${String(Math.floor(Math.random() * 999) + 1).padStart(3, '0')}`; $('#r-rated').classList.remove('hidden'); $('#r-rated').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); });
+function rRatedText() { return `R-RATED OUTCOME\n${$('#rr-title').textContent}\n${$('#rr-detail').textContent}`; }
+$('#share-rr').addEventListener('click', async () => { try { if (navigator.share) await navigator.share({ title: 'R-Rated Outcome', text: rRatedText() }); else { await navigator.clipboard.writeText(rRatedText()); $('#share-rr').textContent = 'Copied'; setTimeout(() => $('#share-rr').textContent = 'Send outcome', 1400); } } catch {} });
+$('#download-rr').addEventListener('click', () => { const c = document.createElement('canvas'), x = c.getContext('2d'); c.width = 1080; c.height = 1080; x.fillStyle = '#fbf2e4'; x.fillRect(0, 0, c.width, c.height); x.strokeStyle = '#b63129'; x.lineWidth = 8; x.strokeRect(38, 38, 1004, 1004); x.fillStyle = '#8e251e'; x.font = '28px monospace'; x.fillText('R-RATED OUTCOME — PERSONAL DELIVERY', 85, 120); x.fillStyle = '#17201b'; x.font = 'bold 68px sans-serif'; wrap(x, $('#rr-title').textContent, 85, 245, 830, 80); x.font = '32px sans-serif'; wrap(x, $('#rr-detail').textContent, 85, 530, 820, 48); x.strokeStyle = '#b63129'; x.lineWidth = 10; x.beginPath(); x.arc(855, 815, 86, 0, Math.PI * 2); x.stroke(); x.fillStyle = '#b63129'; x.font = 'bold 30px monospace'; x.fillText('SERVED', 795, 825); const a = document.createElement('a'); a.download = 'r-rated-outcome.png'; a.href = c.toDataURL('image/png'); a.click(); });
 
 $('#spiral').addEventListener('input', (e) => { const value = e.target.value.trim(); $('#river-thought-text').textContent = value || 'A thought can pass through.'; });
 $('#release-button').addEventListener('click', () => { const scene = $('#release-scene'); scene.classList.remove('released'); void scene.offsetWidth; scene.classList.add('released'); $('#release-caption').textContent = 'It can be here without being held.'; });
