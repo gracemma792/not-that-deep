@@ -35,6 +35,9 @@ const rRatedOutcomes = [
 const categories = ['Things that are blue', 'Movies you could watch again', 'Things that grow in a garden', 'Cities you know', 'Things with wheels', 'Foods you would order at a café'];
 let selected = 'breathing', breathTimer, breathIn = true, categoryIndex = 0, resetTimer;
 
+const hour = new Date().getHours();
+$('#time-of-day').textContent = hour < 5 ? 'being awake for?' : hour < 12 ? 'your morning?' : hour < 18 ? 'your afternoon?' : hour < 23 ? 'your evening?' : 'being awake for?';
+
 document.querySelectorAll('.mode').forEach((button) => button.addEventListener('click', () => {
   const mode = button.dataset.mode;
   document.body.dataset.mode = mode;
