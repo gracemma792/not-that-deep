@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Not That Deep</title>
+  <meta name="description" content="A small tool for right-sizing your reaction." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-mode="dismiss">
+  <main>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Not That Deep home">NOT<br>THAT<br><em>DEEP</em></a>
+      <p class="tagline">A reaction-sizing service<br>for the online and internal worlds.</p>
+    </header>
+
+    <nav class="mode-switch" aria-label="Choose a mode">
+      <button class="mode active" data-mode="dismiss" type="button"><span>01</span> Dismiss it</button>
+      <button class="mode" data-mode="reset" type="button"><span>02</span> Reset</button>
+    </nav>
+
+    <section class="panel dismiss-panel" id="dismiss-panel">
+      <div class="eyebrow">Office of Proportion &amp; Perspective</div>
+      <h1>Is this worth<br>your afternoon?</h1>
+      <p class="intro">Submit the incident for a completely impartial official ruling.</p>
+      <label class="sr-only" for="incident">What happened?</label>
+      <textarea id="incident" maxlength="220" placeholder="e.g. They replied “interesting” to my very normal post"></textarea>
+      <div class="form-row">
+        <span class="character-count"><b id="count">0</b> / 220</span>
+        <button id="rule-button" class="primary-button" type="button">Issue ruling <span>→</span></button>
+      </div>
+
+      <article class="ruling hidden" id="ruling" aria-live="polite">
+        <div class="ruling-topline"><span>CASE FILE <b id="case-number">NTD–000</b></span><span>STATUS: CLOSED</span></div>
+        <div class="ruling-body">
+          <p class="ruling-label">Official finding</p>
+          <h2 id="ruling-title">Insufficient grounds for a spiral.</h2>
+          <p id="ruling-copy"></p>
+        </div>
+        <div class="stamp">NOT<br>THAT<br>DEEP</div>
+        <footer><span>No further correspondence required.</span><span>Filed today</span></footer>
+        <div class="ruling-actions">
+          <button id="share-ruling" type="button">Share ruling</button>
+          <button id="download-ruling" type="button">Save image</button>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel reset-panel hidden" id="reset-panel">
+      <div class="reset-heading">
+        <div class="eyebrow">A small interruption</div>
+        <h1>Let’s make this<br>a little quieter.</h1>
+        <p>This won’t solve everything. It can help make room for the next minute.</p>
+      </div>
+      <label for="spiral">What’s looping? <small>Optional</small></label>
+      <input id="spiral" type="text" maxlength="180" placeholder="You can name it, or leave this blank." />
+      <div class="technique-picker" role="group" aria-label="Choose a grounding technique">
+        <button class="technique selected" data-technique="breathing" type="button">Paced breathing</button>
+        <button class="technique" data-technique="senses" type="button">5–4–3–2–1 senses</button>
+        <button class="technique" data-technique="defusion" type="button">A little distance</button>
+        <button class="technique" data-technique="category" type="button">Name ten things</button>
+      </div>
+      <button class="start-reset" id="start-reset" type="button">Start this one <span>→</span></button>
+
+      <section class="exercise hidden" id="exercise" aria-live="polite">
+        <div class="exercise-meta"><span id="exercise-type">PACED BREATHING</span><button id="choose-another" type="button">Choose another</button></div>
+        <div id="exercise-content"></div>
+        <div class="close-message hidden" id="close-message">
+          <span class="close-mark">✓</span>
+          <div><strong>That was a real feeling.</strong><p id="close-copy">You gave it a little less of the whole room. That counts.</p></div>
+        </div>
+      </section>
+      <p class="crisis-line">If this feels like more than a passing spiral, you deserve more support. In the U.S. or Canada, call or text <a href="https://988lifeline.org/" target="_blank" rel="noreferrer">988</a>.</p>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
